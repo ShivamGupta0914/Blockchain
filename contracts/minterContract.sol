@@ -16,15 +16,12 @@ contract Minter {
     function getToken() external {
         uint256 balance = shivaToken.balanceOf(fromAddress);
         uint256 amountToBeTransfer = (((balance) * (3)) / (100));
-        if (amountToBeTransfer != 0) {
-            shivaToken.transferFrom(
-                fromAddress,
-                msg.sender,
-                amountToBeTransfer
-            );
-            emit Transfer(fromAddress, msg.sender, amountToBeTransfer);
-        } else {
-            revert("can not transfer anymore");
-        }
+        require(amountToBeTransfer !=0, "can not send anymore");
+        shivaToken.transferFrom(
+            fromAddress,
+            msg.sender,
+            amountToBeTransfer
+        );
+        emit Transfer(fromAddress, msg.sender, amountToBeTransfer);
     }
 }
